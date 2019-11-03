@@ -1,0 +1,13 @@
+.vscode
+lib/
+Makefile
+moc*
+*.stash
+*.o
+*.sh
+
+!test
+test/*
+!test/*.cpp
+!test/*.hpp
+!test/*.pro
