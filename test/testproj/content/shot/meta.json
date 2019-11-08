@@ -1,0 +1,8 @@
+{
+	"stages": [
+		"layout",
+		"animation",
+		"lighting",
+		"compositing"
+	]
+}

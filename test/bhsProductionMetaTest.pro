@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = bhsProductionMeta
+TARGET = bin/bhsProductionMetaTest
 QT += testlib
 
 HEADERS += bhsProductionMetaTest.hpp

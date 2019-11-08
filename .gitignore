@@ -6,8 +6,4 @@ moc*
 *.o
 *.sh
 
-!test
-test/*
-!test/*.cpp
-!test/*.hpp
-!test/*.pro
+bhsProductionMetaTest
