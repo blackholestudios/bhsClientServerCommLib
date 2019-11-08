@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QString>
+#include <QDir>
 #include <QHash>
 #include <QJsonDocument>
 #include <QJsonObject> 
@@ -55,8 +56,24 @@ namespace BhsProductionMeta {
 		 * Get data relative to a content version, given its id.
 		 * @param converId	Content version id in path form.
 		 * 					Eg: "/shot/001/layout/v001" 
+		 * @return BhsProductionMeta::ConverData filled with proper data
 		 */
 		ConverData getContentVersionData(const QString& converId);
+
+		/**
+		 * Get a list of all users reistered in the system
+		 * 
+		 * @return List of all usernames
+		 */
+		QStringList getAllUsers();
+
+		/**
+		 * Get a list of all content versions
+		 * 
+		 * @return List with the ids of all convers.
+		 */
+		QStringList getAllContentVersions();
+
 	private:
 		QString basePath;
 	};

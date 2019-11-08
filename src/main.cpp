@@ -9,8 +9,8 @@ DB(const QString& projectBaseFolderPath) :
 BhsProductionMeta::ConverData
 BhsProductionMeta::DB::
 getContentVersionData(const QString& converId) {
-	QString metaPath{basePath + "/content/" + converId + "/meta.json"};
-	QJsonDocument converJsonDoc{readJsonFile(metaPath)};
+	QDir metaPath{basePath + "/content/" + converId + "/meta.json"};
+	QJsonDocument converJsonDoc{readJsonFile(metaPath.path())};
 
 	const QHash<QString, QJsonValue>
 	converJsonData{extractFromJson(converJsonDoc, {
@@ -26,6 +26,35 @@ getContentVersionData(const QString& converId) {
 		QDateTime::fromString(converJsonData["deadline"].toString(), Qt::ISODate),
 		QDateTime::fromString(converJsonData["commitDate"].toString(), Qt::ISODate)
 	};
+}
+
+QStringList
+BhsProductionMeta::DB::
+getAllUsers() {
+	const QDir usersFolder{basePath + "/meta/"};
+	QStringList usersFolderEntries{usersFolder.entryList({"*.json"})};
+
+	QStringList userList;
+	for(QString& entry : usersFolderEntries) {
+		if(entry != "unassigned.json") {
+			userList << entry.remove(".json");
+		}
+	}
+	return userList;
+}
+
+QStringList
+BhsProductionMeta::DB::
+getAllContentVersions() {
+	const QDir metaFolder{basePath + "/meta/"};
+	const QStringList metaFolderEntries{metaFolder.entryList({"*.json"})};
+
+	for(const QString& entry : metaFolderEntries) {
+		const QJsonDocument json{readJsonFile(metaFolder.filePath(entry))};
+		if(entry == "unassigned.json") {
+			
+		}
+	}
 }
 
 BhsProductionMeta::ConverData::Status

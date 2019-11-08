@@ -5,11 +5,18 @@
 #include <QtTest>
 #include <bhsProductionMeta.hpp>
 
-class bhsProductionMetaTest: public QObject
+class BhsProductionMetaTest: public QObject
 {
 	Q_OBJECT
+
 private slots:
-	void testContentDataRetrieval();
+	void initTestCase();
+	void testGetContentVersionData();
+	void testGetAllUsers();
+
+private:
+	BhsProductionMeta::DB* db;
+
 };
 
 #endif
