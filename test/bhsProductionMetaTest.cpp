@@ -13,9 +13,15 @@ void BhsProductionMetaTest::testGetContentVersionData() {
 }
 
 void BhsProductionMetaTest::testGetAllUsers() {
-	const QStringList readUsers{db->getAllUsers()};
-	const QStringList expectedUsers{"dsirota", "gmartell"};
-	QCOMPARE(readUsers, expectedUsers);
+	const QStringList read{db->getAllUsers()};
+	const QStringList expected{"dsirota", "gmartell"};
+	QCOMPARE(read, expected);
+}
+
+void BhsProductionMetaTest::testGetUserResponsibilities() {
+	const QStringList read{db->getUserResponsibilities("gmartell")};
+	const QStringList expected{"/content/shot/001/layout/v001"};
+	QCOMPARE(read, expected);
 }
 
 int main(int argc, char** argv) {

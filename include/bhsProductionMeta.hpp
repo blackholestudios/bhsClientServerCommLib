@@ -6,7 +6,8 @@
 #include <QDir>
 #include <QHash>
 #include <QJsonDocument>
-#include <QJsonObject> 
+#include <QJsonObject>
+#include <QJsonArray>
 #include <QJsonValue>
 #include <QFile>
 #include <QStringList>
@@ -63,9 +64,17 @@ namespace BhsProductionMeta {
 		/**
 		 * Get a list of all users reistered in the system
 		 * 
-		 * @return List of all usernames
+		 * @return QStringList of all usernames
 		 */
 		QStringList getAllUsers();
+
+		/**
+		 * List all responsibilities of given user.
+		 * 
+		 * @param username The username the responsibilities must listed of.
+		 * @return QStringList of all resposibilities of given user.
+		 */
+		QStringList getUserResponsibilities(const QString& username);
 
 		/**
 		 * Get a list of all content versions

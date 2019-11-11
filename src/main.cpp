@@ -45,16 +45,29 @@ getAllUsers() {
 
 QStringList
 BhsProductionMeta::DB::
+getUserResponsibilities(const QString& username) {
+	const QDir userJsonPath{basePath + "/meta/" + username + ".json"};
+	const QJsonDocument json{readJsonFile(userJsonPath.path())};
+	const QJsonValue responsibilitiesJson{json.object()["convers"]};
+	
+	QStringList responsibilities;
+	for(const QJsonValue& entry : responsibilitiesJson.toArray()) {
+		responsibilities << entry.toString();
+	}
+	return responsibilities;
+}
+
+QStringList
+BhsProductionMeta::DB::
 getAllContentVersions() {
 	const QDir metaFolder{basePath + "/meta/"};
 	const QStringList metaFolderEntries{metaFolder.entryList({"*.json"})};
 
 	for(const QString& entry : metaFolderEntries) {
-		const QJsonDocument json{readJsonFile(metaFolder.filePath(entry))};
-		if(entry == "unassigned.json") {
-			
-		}
+		qInfo() << entry;
 	}
+
+	return {};
 }
 
 BhsProductionMeta::ConverData::Status
