@@ -24,6 +24,16 @@ void BhsProductionMetaTest::testGetUserResponsibilities() {
 	QCOMPARE(read, expected);
 }
 
+void BhsProductionMetaTest::testGetAllContentVersions() {
+	const QStringList read{db->getAllContentVersions()};
+	const QStringList expected{
+		"/content/shot/001/animation/v001",
+		"/content/shot/001/layout/v001",
+		"/content/shot/001/layout/v002"
+	};
+	QCOMPARE(read, expected);
+}
+
 int main(int argc, char** argv) {
 	BhsProductionMetaTest* t{new BhsProductionMetaTest()};
 	QTest::qExec(t, argc, argv);

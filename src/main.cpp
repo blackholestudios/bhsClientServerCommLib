@@ -48,10 +48,10 @@ BhsProductionMeta::DB::
 getUserResponsibilities(const QString& username) {
 	const QDir userJsonPath{basePath + "/meta/" + username + ".json"};
 	const QJsonDocument json{readJsonFile(userJsonPath.path())};
-	const QJsonValue responsibilitiesJson{json.object()["convers"]};
+	const QJsonArray responsibilitiesJson{json.object()["convers"].toArray()[0]};
 	
 	QStringList responsibilities;
-	for(const QJsonValue& entry : responsibilitiesJson.toArray()) {
+	for(const QJsonValue& entry : responsibilitiesJson) {
 		responsibilities << entry.toString();
 	}
 	return responsibilities;
@@ -60,14 +60,24 @@ getUserResponsibilities(const QString& username) {
 QStringList
 BhsProductionMeta::DB::
 getAllContentVersions() {
-	const QDir metaFolder{basePath + "/meta/"};
-	const QStringList metaFolderEntries{metaFolder.entryList({"*.json"})};
+	QStringList responsibilities;
 
-	for(const QString& entry : metaFolderEntries) {
-		qInfo() << entry;
+	// Read from user files
+	const QStringList users{getAllUsers()};
+	for(const QString& user : users) {
+		const QStringList userResponsibilities{getUserResponsibilities(user)};
+		responsibilities << userResponsibilities;
 	}
 
-	return {};
+	// Read from unassigned.json
+	const QDir jsonPath{basePath + "/meta/unassigned.json"}; 
+	const QJsonDocument json{readJsonFile(jsonPath.path())};
+	const QJsonArray unassigned{json.array()[0]};
+	for(const QJsonValue& entry : unassigned) {
+		responsibilities << entry.toString();
+	}
+
+	return responsibilities;
 }
 
 BhsProductionMeta::ConverData::Status

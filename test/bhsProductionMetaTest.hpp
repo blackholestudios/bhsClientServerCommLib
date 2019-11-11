@@ -14,6 +14,7 @@ private slots:
 	void testGetContentVersionData();
 	void testGetAllUsers();
 	void testGetUserResponsibilities();
+	void testGetAllContentVersions();
 
 private:
 	BhsProductionMeta::DB* db;

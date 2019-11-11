@@ -62,7 +62,7 @@ namespace BhsProductionMeta {
 		ConverData getContentVersionData(const QString& converId);
 
 		/**
-		 * Get a list of all users reistered in the system
+		 * Get a list of all users registered in the system
 		 * 
 		 * @return QStringList of all usernames
 		 */
@@ -77,7 +77,7 @@ namespace BhsProductionMeta {
 		QStringList getUserResponsibilities(const QString& username);
 
 		/**
-		 * Get a list of all content versions
+		 * Get a list of all content versions.
 		 * 
 		 * @return List with the ids of all convers.
 		 */
