@@ -4,7 +4,6 @@
 #include <QDebug>
 #include <QString>
 #include <QDir>
-#include <QHash>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -55,16 +54,15 @@ namespace BhsProductionMeta {
 
 		/**
 		 * Get data relative to a content version, given its id.
-		 * @param converId	Content version id in path form.
-		 * 					Eg: "/shot/001/layout/v001" 
-		 * @return BhsProductionMeta::ConverData filled with proper data
+		 * @param converId	Content version id. 
+		 * @return BhsProductionMeta::ConverData filled with proper data.
 		 */
 		ConverData getContentVersionData(const QString& converId);
 
 		/**
 		 * Get a list of all users registered in the system
 		 * 
-		 * @return QStringList of all usernames
+		 * @return QStringList of all usernames.
 		 */
 		QStringList getAllUsers();
 
@@ -83,21 +81,18 @@ namespace BhsProductionMeta {
 		 */
 		QStringList getAllContentVersions();
 
+		/**
+		 * Assign content version to user.
+		 * 
+		 * @param converId	Content version id in path form.
+		 * @param username	User to assign the conver to.
+		 */
+		void assignConverToUser(const QString& converId,
+								const QString& username);
+
 	private:
 		QString basePath;
 	};
-
-	/**
-	 * Get key-value pairs of given keys from Json document.
-	 * 
-	 * @param json QJsonDocument to get data from.
-	 * @param keys List of keys to get.
-	 * @return Requested key-value pairs.
-	 */
-	QHash<QString, QJsonValue>
-	extractFromJson(
-		const QJsonDocument&	json,
-		const QStringList&		keys);
 
 	/**
 	 * Read Json from file

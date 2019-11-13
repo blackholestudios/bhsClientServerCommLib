@@ -11,20 +11,13 @@ BhsProductionMeta::DB::
 getContentVersionData(const QString& converId) {
 	QDir metaPath{basePath + "/content/" + converId + "/meta.json"};
 	QJsonDocument converJsonDoc{readJsonFile(metaPath.path())};
-
-	const QHash<QString, QJsonValue>
-	converJsonData{extractFromJson(converJsonDoc, {
-		"status",
-		"assignee",
-		"deadline",
-		"commitDate"
-	})};
+	const QJsonObject converJsonObj{converJsonDoc.object()};
 
 	return {
-		ConverData::string2status(converJsonData["status"].toString("UNASSIGNED")),
-		converJsonData["assignee"].toString("UNASSIGNED"),
-		QDateTime::fromString(converJsonData["deadline"].toString(), Qt::ISODate),
-		QDateTime::fromString(converJsonData["commitDate"].toString(), Qt::ISODate)
+		ConverData::string2status(converJsonObj["status"].toString("UNASSIGNED")),
+		converJsonObj["assignee"].toString("UNASSIGNED"),
+		QDateTime::fromString(converJsonObj["deadline"].toString(), Qt::ISODate),
+		QDateTime::fromString(converJsonObj["commitDate"].toString(), Qt::ISODate)
 	};
 }
 
@@ -80,6 +73,16 @@ getAllContentVersions() {
 	return responsibilities;
 }
 
+void
+BhsProductionMeta::DB::
+assignConverToUser(	const QString& converId,
+					const QString& username) {
+	// Add to user
+	
+	// Remove from unassigned
+}
+
+
 BhsProductionMeta::ConverData::Status
 BhsProductionMeta::ConverData::
 string2status(const QString& s) {
@@ -92,21 +95,6 @@ string2status(const QString& s) {
 	if(sUp == "UNASSIGNED")	return UNASSIGNED;
 	if(sUp == "WIP")		return WIP;
 	return UNASSIGNED;
-}
-
-QHash<QString, QJsonValue>
-BhsProductionMeta::
-extractFromJson(
-	const QJsonDocument&	json,
-	const QStringList&		keys) {
-	
-	const QJsonObject jobj{json.object()};
-	QHash<QString, QJsonValue> returnData;
-	for(const QString& k : keys) {
-		if(jobj.contains(k))
-			returnData[k] = jobj[k];
-	}
-	return returnData;
 }
 
 QJsonDocument 
